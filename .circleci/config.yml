@@ -117,9 +117,6 @@ jobs:
             npm audit fix --force--audit-level=critical
             npm audit fix --force --audit-level=critical
             npm audit --audit-level=critical
-      - save_cache:
-          paths: [backend/node_modules]
-          key: backend-deps 
   deploy-infrastructure:
      docker:
        - image: cimg/base:stable
@@ -132,7 +129,7 @@ jobs:
              aws cloudformation deploy \
                --template-file .circleci/files/backend.yml \
                --tags project=project3 \
-               --stack-name ""udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}" \
+               --stack-name ""project3-backend-${CIRCLE_WORKFLOW_ID:0:7}" \
                --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}" 
              
        - run:
@@ -141,7 +138,7 @@ jobs:
              aws cloudformation deploy \
                --template-file .circleci/files/frontend.yml \
                --tags project=project3 \
-               --stack-name "udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}" \
+               --stack-name "project3-frontend-${CIRCLE_WORKFLOW_ID:0:7}" \
                --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}"
   
                
